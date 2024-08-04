@@ -24,9 +24,15 @@ class Node:
 
 """
 Processes a set of pattern strings into a trie. This is just a tree that contains all the possible
-prefixes. It also contains "fail" nodes that get traversed if the search fails.
+prefixes. It also contains "fail" nodes that get traversed if the search fails. Well, technically
+it's a graph not a tree, due to the fail links (which can be cyclic). Because we traverse it similarly
+to executing a program graph (AST) or matching a regex, it can also be thought of as an automaton.
 
-See https://www.youtube.com/watch?v=O7_w001f58c for a video explanation.
+If you're interested in automata in general, this YouTube channel has a good series of videos
+that explain them: youtube.com/watch?v=Qa6csfkK7_I
+
+For the Aho-Corasick automaton specifically, see https://www.youtube.com/watch?v=O7_w001f58c
+for a video explanation (highly recommended).
 """
 def aho_preprocess_strings_as_trie(strings):
     root = Node("", "")
@@ -71,7 +77,6 @@ def aho_preprocess_strings_as_trie(strings):
             node.fail = search
             current = node
             
-
     return root
 
 
